@@ -6,9 +6,23 @@ for line in sys.stdin:
     # remove leading and trailing whitespace
     line = line.strip()
 
+    # make lower case
+    line = line.lower()
+
+    # For loop to remove punctuation
+    listSentence = list(line)
+    for x in range(0,len(listSentence)):
+	if listSentence[x].isalpha() is False:
+	   if listSentence[x] != '\'':
+	      listSentence[x] = ' '
+    line = ''.join(listSentence)
+
     # split the line into words; splits on any whitespace
     words = line.split()
 
     # output tuples (word, 1) in tab-delimited format
+    stopwords = set(['the','and','i'])
+
     for word in words:
+       if word not in stopwords:
         print '%s\t%s' % (word, "1")
